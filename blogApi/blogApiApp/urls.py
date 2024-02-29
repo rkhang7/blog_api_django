@@ -8,4 +8,5 @@ urlpatterns = [
      path('delete-post', views.DeletePost),
      path('get-post', views.GetPost),
      path('update-post', views.UpdatePost),
+     path('detect-face', views.DetectFace),
 ]

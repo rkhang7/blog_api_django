@@ -3,6 +3,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Post
 from .serializers import PostSerializer
+from .utils import Utils
+from .faces_manager import FacesManager
+import cv2
 
 # Create your views here.
 
@@ -64,3 +67,19 @@ def UpdatePost(request):
         return Response({"Success": "The post was successfully updated"}, status=200)
     except Post.DoesNotExist:
         return Response({"Error": "The post does not exist"}, status=404)
+    
+@api_view(['POST'])
+def DetectFace(request):
+    try:
+        base64_image = request.data.get('image')
+        image = Utils.SaveImage(base64_image)
+        id,dist = FacesManager.Recognizer(image)
+        return Response({"message": "The image was successfully uploaded", "dist": dist, "id": id}, status=200)
+    except Exception as e:
+        return Response({"message": e }, status=404)
+   
+
+
+
+
+
