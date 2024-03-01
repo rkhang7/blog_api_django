@@ -1,7 +1,7 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Post
+from .models import User
 
-class PostSerializer(ModelSerializer):
+class UserSerializer(ModelSerializer):
     class Meta:
-        model = Post
+        model = User
         fields = '__all__'
