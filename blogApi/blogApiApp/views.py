@@ -30,15 +30,7 @@ def index(request):
 #     else:
 #         return Response(serializer.errors, status=400)
     
-# @api_view(['DELETE'])
-# def DeletePost(request):
-#     post_id = request.data.get('post_id')
-#     try:
-#         post = Post.objects.get(id=post_id)
-#         post.delete()
-#         return Response({"Success": "The post was successfully deleted"}, status=200)
-#     except Post.DoesNotExist:
-#         return Response({"Error": "The post does not exist"}, status=404)
+
     
 # @api_view(['GET'])
 # def GetPost(request):
@@ -74,7 +66,7 @@ def CreateUser(request):
     serializer = UserSerializer(data=data)
     if serializer.is_valid():
         serializer.save()
-        return Response({"success": True ,"message": "The user has successfully created"}, status=201)
+        return Response({"success": True ,"message": "The user has successfully created"}, status=200)
     else:
         return Response({"success": False, "message": serializer.errors}, status=400)
 
@@ -83,6 +75,16 @@ def GetUsers(request):
     get_users = User.objects.all()
     serializer = UserSerializer(get_users, many = True)
     return Response(serializer.data)
+
+@api_view(['DELETE'])
+def DeleteUser(request):
+    user_id = request.data.get('id')
+    try:
+        post = User.objects.get(id=user_id)
+        post.delete()
+        return Response({"success": True, "message": "The user was successfully deleted"}, status=200)
+    except User.DoesNotExist:
+        return Response({"message": "The user does not exist"}, status=404)
 
 @api_view(['GET'])
 def TestConnection(request):
@@ -97,6 +99,7 @@ def DetectFace(request):
         return Response({"message": "The image was successfully uploaded", "dist": dist, "id": id}, status=200)
     except Exception as e:
         return Response({"message": e }, status=404)
+
    
 
 

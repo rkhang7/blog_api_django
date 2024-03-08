@@ -6,7 +6,7 @@ urlpatterns = [
      # path('get-all-posts', views.GetAllPosts),
      path('create-new-user', views.CreateUser),
      path('get-users', views.GetUsers),
-     # path('delete-post', views.DeletePost),
+     path('delete-user', views.DeleteUser),
      # path('get-post', views.GetPost),
      # path('update-post', views.UpdatePost),
      path('test-connection', views.TestConnection),
