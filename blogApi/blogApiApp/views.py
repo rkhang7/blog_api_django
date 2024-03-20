@@ -106,7 +106,7 @@ def DetectFace(request):
     try:
         # base64_image = request.data.get('image')
         # user_id = request.data.get('userid')
-        FacesManager.Detect2()
+        FacesManager.Detect2(user_id)
         return Response({"message": "The image was successfully uploaded"}, status=200)
     except Exception as e:
         return Response({"message": e }, status=404)
