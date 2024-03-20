@@ -70,7 +70,7 @@ class FacesManager:
             cropped_face_gray = cv2.cvtColor(cropped_face, cv2.COLOR_BGR2GRAY)
     
     # Save the cropped face as a new image
-            cv2.imwrite('faces/' + f'face_{i}.jpg', cropped_face_gray)
+            cv2.imwrite('faces/' + id +  "/" +   f'face_{i}.jpg', cropped_face_gray)
 
     # Draw rectangle around the detected face on the original image
             cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
