@@ -90,13 +90,24 @@ def DeleteUser(request):
 def TestConnection(request):
     return Response({"messsage": "Connected"}, status=200)
     
+# @api_view(['POST'])
+# def DetectFace(request):
+#     try:
+#         base64_image = request.data.get('image')
+#         image = Utils.SaveImage(base64_image)
+#         id,dist = FacesManager.Recognizer(image)
+#         return Response({"message": "The image was successfully uploaded", "dist": dist, "id": id}, status=200)
+#     except Exception as e:
+#         return Response({"message": e }, status=404)
+    
 @api_view(['POST'])
 def DetectFace(request):
+    user_id = request.data.get('userId')
     try:
-        base64_image = request.data.get('image')
-        image = Utils.SaveImage(base64_image)
-        id,dist = FacesManager.Recognizer(image)
-        return Response({"message": "The image was successfully uploaded", "dist": dist, "id": id}, status=200)
+        # base64_image = request.data.get('image')
+        # user_id = request.data.get('userid')
+        FacesManager.Detect2()
+        return Response({"message": "The image was successfully uploaded"}, status=200)
     except Exception as e:
         return Response({"message": e }, status=404)
 
