@@ -1,7 +1,7 @@
 
 import cv2
 import time
-
+from .utils import Utils
 # faceDetect = None
 # recognizer = None
 class FacesManager:
@@ -49,31 +49,45 @@ class FacesManager:
             cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
 
-    def Detect2(id):
+    def Detect2(name,id, image):
+       
+        sampleNum = Utils.CountFilesByFilename('faces/', name)
+
+        
+
         # Load the pre-trained face cascade classifier
         face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
+       
+
         # Load the image
-        image = cv2.imread('khang.jpg')
+        # image = cv2.imread('khang.jpg')
+        
+        # Detect faces in the image
+        faces = face_cascade.detectMultiScale(image, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+        # faces = face_cascade.detectMultiScale(image, 1.3, 5)
 
-# Convert the image to grayscale (face detection works on grayscale images)
-        gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-# Detect faces in the image
-        faces = face_cascade.detectMultiScale(gray_image, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+       
 
-# Iterate over detected faces and crop them
+        # Iterate over detected faces and crop them
         for i, (x, y, w, h) in enumerate(faces):
-    # Crop the face region from the image
+        # Crop the face region from the image
+            
             cropped_face = image[y:y+h, x:x+w]
-
             cropped_face_gray = cv2.cvtColor(cropped_face, cv2.COLOR_BGR2GRAY)
-    
-    # Save the cropped face as a new image
-            cv2.imwrite('faces/' + id +  "/" +   f'face_{i}.jpg', cropped_face_gray)
+            sampleNum = sampleNum + 1
 
-    # Draw rectangle around the detected face on the original image
-            cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
-
+       
+                # Save the cropped face as a new image
+            if(sampleNum <= 10):
+                cv2.imwrite('faces/'  + str(name) + "." + id + '.' + str(sampleNum) + ".jpg", cropped_face_gray)
+                # Draw rectangle around the detected face on the original image
+        #     cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
             break
+        if sampleNum > 10:
+            return False
+        else:
+            return True
+
 
