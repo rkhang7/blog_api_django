@@ -49,16 +49,10 @@ class FacesManager:
             cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
 
 
-    def Detect2(name,id, image):
-       
-        sampleNum = Utils.CountFilesByFilename('faces/', name)
-
-        
-
+    def Detect2(id, image):
+        sampleNum = Utils.CountFilesById('faces/', id)
         # Load the pre-trained face cascade classifier
         face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-
-       
 
         # Load the image
         # image = cv2.imread('khang.jpg')
@@ -66,22 +60,15 @@ class FacesManager:
         # Detect faces in the image
         faces = face_cascade.detectMultiScale(image, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
         # faces = face_cascade.detectMultiScale(image, 1.3, 5)
-
-
-       
-
         # Iterate over detected faces and crop them
         for i, (x, y, w, h) in enumerate(faces):
         # Crop the face region from the image
-            
             cropped_face = image[y:y+h, x:x+w]
             cropped_face_gray = cv2.cvtColor(cropped_face, cv2.COLOR_BGR2GRAY)
             sampleNum = sampleNum + 1
-
-       
                 # Save the cropped face as a new image
             if(sampleNum <= 10):
-                cv2.imwrite('faces/'  + str(name) + "." + id + '.' + str(sampleNum) + ".jpg", cropped_face_gray)
+                cv2.imwrite('faces/'  + id + '.' + str(sampleNum) + ".jpg", cropped_face_gray)
                 # Draw rectangle around the detected face on the original image
         #     cv2.rectangle(image, (x, y), (x+w, y+h), (0, 255, 0), 2)
             break

@@ -11,4 +11,5 @@ urlpatterns = [
      # path('update-post', views.UpdatePost),
      path('test-connection', views.TestConnection),
      path('detect-face', views.DetectFace),
+     path('get-count-face-photo-byid', views.GetCountFacesPhotoById)
 ]
