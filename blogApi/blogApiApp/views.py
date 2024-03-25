@@ -107,21 +107,21 @@ def DetectFace(request):
     try:
         image = Utils.ConvertBase64ToImage(base64_image)
 
-        if FacesManager.Detect2(user_id, image) == True:
-            return Response({"status": True, "message": "The image was successfully uploaded"}, status=200)
+        if FacesManager.Detect2(str(user_id), image) == True:
+            return Response({"success": True, "message": "The image was successfully uploaded"}, status=200)
         else:
-            return Response({"status": False ,"message": "Do not upload more than 10 photos"}, status=200)
+            return Response({"success": False ,"message": "Do not upload more than 10 photos"}, status=200)
     except Exception as e:
-        return Response({"status": False  ,"message": e }, status=404)
+        return Response({"success": False  ,"message": e }, status=404)
     
 @api_view(['GET'])
 def GetCountFacesPhotoById(request):
     id = request.data.get('userId')
     try:
         sampleNum = Utils.CountFilesById('faces/', str(id))
-        return Response({"status": True , "count": sampleNum}, status=200)
+        return Response({"success": True , "count": sampleNum}, status=200)
     except Exception as e:
-        return Response({"status": False  ,"message": e }, status=404)
+        return Response({"success": False  ,"message": e }, status=404)
    
 
 
