@@ -34,13 +34,13 @@ def getImagesAndLabels(path):
 
 
 # Lấy các khuôn mặt và ID từ thư mục dataSet
-faceSamples,Ids = getImagesAndLabels('dataSet')
+faceSamples,Ids = getImagesAndLabels('blogApi/faces')
 
 # Train model để trích xuất đặc trưng các khuôn mặt và gán với từng nahan viên
 recognizer.train(faceSamples, np.array(Ids))
 
 # Lưu model
-recognizer.save('recognizer/trainner.yml')
+recognizer.save('blogApi/recognizer/trainner.yml')
 
 print("Trained!")
 

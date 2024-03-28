@@ -2,6 +2,9 @@
 import cv2
 import time
 from .utils import Utils
+import numpy as np
+
+
 # faceDetect = None
 # recognizer = None
 class FacesManager:
@@ -76,5 +79,23 @@ class FacesManager:
             return False
         else:
             return True
+    
+    def TrainingModel():
+        recognizer = cv2.face.LBPHFaceRecognizer_create()
+        # detector= cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+        detector= cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+        # Lấy các khuôn mặt và ID từ thư mục dataSet
+        faceSamples,Ids = Utils.getImagesAndLabels('faces')
+
+        # Train model để trích xuất đặc trưng các khuôn mặt và gán với từng nahan viên
+        recognizer.train(faceSamples, np.array(Ids))
+
+        # Lưu model
+        recognizer.save('recognizer/trainner.yml')
+        print("Trained!")
+
+
+
+
 
 
